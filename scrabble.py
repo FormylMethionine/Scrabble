@@ -67,6 +67,10 @@ def search_dic(dic,letters,base=""):
     for word in letters:
         srcdic={i:dic[i] for i in dic}
         for letter in word:
+            #penser à ajouter gestions des jokers: 
+            #if letter==joker:
+            #   for i in "alphabet":
+            #       search
             if 0 in srcdic and srcdic[0] not in ret:
                 ret.add(srcdic[0])
             if letter in srcdic:
@@ -76,8 +80,9 @@ def search_dic(dic,letters,base=""):
 
 t0=time.perf_counter()
 liste=list_from_file("liste.txt")
+print(len(liste))
 dic=(make_dic(liste,0))
-letters=randstring(9)
+letters=randstring(7)
 #print(dic)
 print(letters)
 #print(search_dic(dic,"EYNPFVZ"))
