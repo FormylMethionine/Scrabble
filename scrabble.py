@@ -56,9 +56,12 @@ def permutlist(string):
 
     return ret
 
-def search_dic(dic,letters):
+def search_dic(dic,letters,base=""):
 
-    letters=permutlist2(letters)
+    for letter in base:
+        dic=dic[letter]
+
+    letters=permutlist(letters)
     ret=set()
     #print(letters)
     for word in letters:
@@ -74,7 +77,7 @@ def search_dic(dic,letters):
 t0=time.perf_counter()
 liste=list_from_file("liste.txt")
 dic=(make_dic(liste,0))
-letters=randstring(10)
+letters=randstring(9)
 #print(dic)
 print(letters)
 #print(search_dic(dic,"EYNPFVZ"))
@@ -82,3 +85,4 @@ playable=(search_dic(dic,letters))
 print(playable, len(playable))
 t1=time.perf_counter()
 print(t1-t0)
+print(search_dic(dic,"ETIRAUPOA","TEST"))
