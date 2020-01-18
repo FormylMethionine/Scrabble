@@ -1,4 +1,4 @@
-from randstring import randstring
+from randstring import randstring,generateBag,tirage
 import time
 
 def list_from_file(name):
@@ -82,8 +82,8 @@ t0=time.perf_counter()
 liste=list_from_file("liste.txt")
 print(len(liste))
 dic=(make_dic(liste,0))
-letters=randstring(7)
-#print(dic)
+bag=generateBag()
+letters,Bag=tirage(bag,7)
 print(letters)
 #print(search_dic(dic,"EYNPFVZ"))
 playable=(search_dic(dic,letters))

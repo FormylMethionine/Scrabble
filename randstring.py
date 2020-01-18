@@ -87,3 +87,74 @@ def randstring(n):
             string+="Z"		
     
     return string
+
+def generateBag():
+
+    ret=[]
+
+    for i in range(9):
+        ret+="A"
+    for i in range(2):
+        ret+="B"
+    for i in range(2):
+        ret+="C"
+    for i in range(3):
+        ret+="D"
+    for i in range(15):
+        ret+="E"
+    for i in range(2):
+        ret+="F"
+    for i in range(2):
+        ret+="G"
+    for i in range(2):
+        ret+="H"
+    for i in range(8):
+        ret+="I"
+    for i in range(1):
+        ret+="J"
+    for i in range(1):
+        ret+="K"
+    for i in range(5):
+        ret+="L"
+    for i in range(3):
+        ret+="M"
+    for i in range(6):
+        ret+="N"
+    for i in range(6):
+        ret+="O"
+    for i in range(2):
+        ret+="P"
+    for i in range(1):
+        ret+="Q"
+    for i in range(6):
+        ret+="R"
+    for i in range(6):
+        ret+="S"
+    for i in range(6):
+        ret+="T"
+    for i in range(6):
+        ret+="U"
+    for i in range(2):
+        ret+="V"
+    for i in range(1):
+        ret+="W"
+    for i in range(1):
+        ret+="X"
+    for i in range(1):
+        ret+="Y"
+    for i in range(1):
+        ret+="Z"
+    for i in range(2):
+        ret+="1"
+
+    return ret
+
+def tirage(liste,size):
+
+    ret=""
+
+    for i in range(size):
+        index=np.random.randint(len(liste))
+        ret+=liste.pop(index)
+
+    return ret,liste
