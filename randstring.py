@@ -191,6 +191,11 @@ def generateBag():
     return ret
 
 
+def NewgenerateBag():
+
+    bag = []
+    table = {
+
 def tirage(liste, size):
 
     ret = ""
