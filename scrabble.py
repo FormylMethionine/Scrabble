@@ -1,4 +1,4 @@
-from randstring import randstring, generateBag, tirage
+from randstring import generateBag, tirage
 import time
 
 
@@ -89,6 +89,7 @@ liste = list_from_file("liste.txt")
 print(len(liste))
 dic = (make_dic(liste, 0))
 bag = generateBag()
+print(bag)
 letters, Bag = tirage(bag, 7)
 print(letters)
 # print(search_dic(dic,"EYNPFVZ"))
