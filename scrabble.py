@@ -103,4 +103,5 @@ playable = (search_dic(dic, letters))
 t1 = time.perf_counter()
 playable = sorted(playable, key=score)[::-1]
 print(playable, len(playable))
+print(score(playable[1]))
 print(t1-t0)
