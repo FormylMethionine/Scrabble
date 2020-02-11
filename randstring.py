@@ -40,7 +40,7 @@ def randstring(n):
     return string
 
 
-def NewgenerateBag():
+def generateBag():
 
     bag = []
     table = {'A': 9,
