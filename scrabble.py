@@ -1,4 +1,5 @@
 from randstring import generateBag, tirage, randstring
+from calculateScore import score
 import time
 
 
@@ -66,13 +67,14 @@ def search_word(dic, word, ret):
     if 0 in dic and dic[0] not in ret:
         ret.add(dic[0])
 
-    if word[0] == "1":
-        for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
-            if letter in dic:
-                search_word(dic[letter], word[1:], ret)
+    if word != "":
+        if word[0] == "1":
+            for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+                if letter in dic:
+                    search_word(dic[letter], word[1:], ret)
 
-    elif word[0] in dic:
-        search_word(dic[word[0]], word[1:], ret)
+        elif word[0] in dic:
+            search_word(dic[word[0]], word[1:], ret)
 
 
 def search_dic(dic, letters, base=""):
@@ -89,14 +91,16 @@ def search_dic(dic, letters, base=""):
     return ret
 
 
-t0 = time.perf_counter()
 liste = list_from_file("liste.txt")
 print(len(liste))
 dic = (make_dic(liste, 0))
 bag = generateBag()
 letters, bag = tirage(bag, 7)
+# un bug fonctionnait avec SAREGHN, RSCEIRH
 print(letters)
+t0 = time.perf_counter()
 playable = (search_dic(dic, letters))
 t1 = time.perf_counter()
+playable = sorted(playable, key=score)[::-1]
 print(playable, len(playable))
 print(t1-t0)
