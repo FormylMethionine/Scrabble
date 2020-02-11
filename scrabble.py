@@ -62,19 +62,24 @@ def permutlist(string):
     return ret
 
 
-def search_word(dic, word, ret):
+def search_word(dic, word, ret, retlist, i):
 
+    jokers = []
     if 0 in dic and dic[0] not in ret:
         ret.add(dic[0])
+        retlist.append((dic[0], jokers))
 
     if word != "":
         if word[0] == "1":
+            jokers.append(i)
             for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
                 if letter in dic:
-                    search_word(dic[letter], word[1:], ret)
+                    i += 1
+                    search_word(dic[letter], word[1:], ret, retlist, i)
 
         elif word[0] in dic:
-            search_word(dic[word[0]], word[1:], ret)
+            i += 1
+            search_word(dic[word[0]], word[1:], ret, retlist, i)
 
 
 def search_dic(dic, letters, base=""):
@@ -85,10 +90,11 @@ def search_dic(dic, letters, base=""):
             dic = dic[letter]
 
     ret = set()
+    wordlist = []
     for word in letters:
-        search_word(dic, word, ret)
+        search_word(dic, word, ret, wordlist, len(base))
 
-    return ret
+    return wordlist
 
 
 liste = list_from_file("liste.txt")
@@ -101,7 +107,7 @@ print(letters)
 t0 = time.perf_counter()
 playable = (search_dic(dic, letters))
 t1 = time.perf_counter()
-playable = sorted(playable, key=score)[::-1]
+# playable = sorted(playable, key=score)[::-1]
 print(playable, len(playable))
 print(score(playable[1]))
 print(t1-t0)
