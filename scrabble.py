@@ -61,30 +61,7 @@ def permutlist(string):
     return ret
 
 
-def search_dic(dic, letters, base=""):
-
-    for letter in base:
-        dic = dic[letter]
-
-    letters = permutlist(letters)
-    ret = set()
-    # print(letters)
-    for word in letters:
-        srcdic = {i: dic[i] for i in dic}
-        for letter in word:
-            # penser à ajouter gestions des jokers:
-            # if letter==joker:
-            #   for i in "alphabet":
-            #       search
-            if 0 in srcdic and srcdic[0] not in ret:
-                ret.add(srcdic[0])
-            if letter in srcdic:
-                srcdic = srcdic[letter]
-
-    return ret
-
-
-def rec_search_word(dic, word, ret):
+def search_word(dic, word, ret):
 
     if 0 in dic and dic[0] not in ret:
         ret.add(dic[0])
@@ -92,13 +69,13 @@ def rec_search_word(dic, word, ret):
     if word[0] == "1":
         for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
             if letter in dic:
-                rec_search_word(dic[letter], word[1:], ret)
+                search_word(dic[letter], word[1:], ret)
 
     elif word[0] in dic:
-        rec_search_word(dic[word[0]], word[1:], ret)
+        search_word(dic[word[0]], word[1:], ret)
 
 
-def rec_search_dic(dic, letters, base=""):
+def search_dic(dic, letters, base=""):
 
     letters = permutlist(letters)
     if base != "":
@@ -107,7 +84,7 @@ def rec_search_dic(dic, letters, base=""):
 
     ret = set()
     for word in letters:
-        rec_search_word(dic, word, ret)
+        search_word(dic, word, ret)
 
     return ret
 
@@ -119,7 +96,7 @@ dic = (make_dic(liste, 0))
 bag = generateBag()
 letters, bag = tirage(bag, 7)
 print(letters)
-playable = (rec_search_dic(dic, letters))
+playable = (search_dic(dic, letters))
 t1 = time.perf_counter()
 print(playable, len(playable))
 print(t1-t0)
