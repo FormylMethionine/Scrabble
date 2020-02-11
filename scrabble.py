@@ -1,4 +1,4 @@
-from randstring import generateBag, tirage
+from randstring import generateBag, tirage, randstring
 import time
 
 
@@ -84,17 +84,56 @@ def search_dic(dic, letters, base=""):
     return ret
 
 
+def search_word(dic, word, base=""):
+
+    srcdic = {i: dic[i] for i in dic}
+    ret = set()
+    for letter in word:
+        if 0 in srcdic and srcdic[0] not in ret:
+            ret.add(srcdic[0])
+        if letter in srcdic:
+            srcdic = srcdic[letter]
+
+    return ret
+
+
+def rec_search_word(dic, word, ret):
+
+    if 0 in dic and dic[0] not in ret:
+        ret.add(dic[0])
+    if word[0] in dic:
+        rec_search_word(dic[word[0]], word[1:], ret)
+
+
+def rec_search_dic(dic, letters, base=""):
+
+    letters = permutlist(letters)
+    if base != "":
+        for letter in base:
+            dic = dic[letter]
+
+    ret = set()
+    for word in letters:
+        rec_search_word(dic, word, ret)
+
+    return ret
+
+
 t0 = time.perf_counter()
 liste = list_from_file("liste.txt")
 print(len(liste))
 dic = (make_dic(liste, 0))
 bag = generateBag()
 print(bag)
-letters, Bag = tirage(bag, 7)
+#letters, bag = tirage(bag, 7)
+letters = randstring(7)
 print(letters)
 # print(search_dic(dic,"EYNPFVZ"))
-playable = (search_dic(dic, letters))
+playable = (rec_search_dic(dic, letters))
 print(playable, len(playable))
 t1 = time.perf_counter()
 print(t1-t0)
 print(search_dic(dic, "ETIRAUPOA", "TEST"))
+print(rec_search_dic(dic, letters) == search_dic(dic, letters))
+print(rec_search_dic(dic, "ETIRAUPOA", "TEST") == search_dic(dic, "ETIRAUPOA", "TEST"))
+#print(rec_search_dic(dic, "ETIRAUPOA", "TEST"))
